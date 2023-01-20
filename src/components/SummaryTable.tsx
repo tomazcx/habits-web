@@ -1,15 +1,22 @@
+import dayjs from "dayjs"
+import {useSummary} from "../hooks/useSummary"
 import {generateDatesFromYearBeginning} from "../utils/generate-dates-from-year-begginning"
 import {HabitDay} from "./HabitDay"
+import {UnnactiveHabitDay} from "./UnnactiveHabitDay"
 import {WeekDay} from "./WeekDay"
 
 export const SummaryTable = () => {
 
+	const {summary} = useSummary()
+
 	const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
+
+	console.log(summary)
 
 	const summaryDates = generateDatesFromYearBeginning()
 
 	const minimumSummaryDatesSize = 18 * 7 //18 weeks
-	const ammountOfDaysToFill = minimumSummaryDatesSize - summaryDates.length
+	const ammountOfDaysToFill = minimumSummaryDatesSize - summary.length
 
 	return (
 		<div className="w-full flex" >
@@ -17,9 +24,15 @@ export const SummaryTable = () => {
 				{weekDays.map((weekDay, i) => <WeekDay key={`${weekDay}-${i}`} text={weekDay} />)}
 			</div>
 			<div className="grid grid-rows-7 grid-flow-col gap-3">
-				{summaryDates.map(date => <HabitDay key={date.toString()} />
+				{summaryDates.map(date => {
+					const dayInSummary = summary.find(day => {
+						return dayjs(date).isSame(day.date, 'day')
+					})
+
+					return <HabitDay key={date.toString()} date={date} amount={dayInSummary?.amount} completed={dayInSummary?.completed} />
+				}
 				)}
-				{ammountOfDaysToFill > 0 && Array.from({length: ammountOfDaysToFill}).map((_, i) => <HabitDay isActive={false} />)}
+				{ammountOfDaysToFill > 0 && Array.from({length: ammountOfDaysToFill}).map((_, i) => <UnnactiveHabitDay key={i} />)}
 			</div>
 
 		</div >
