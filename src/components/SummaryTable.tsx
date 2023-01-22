@@ -11,8 +11,6 @@ export const SummaryTable = () => {
 
 	const weekDays = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
 
-	console.log(summary)
-
 	const summaryDates = generateDatesFromYearBeginning()
 
 	const minimumSummaryDatesSize = 18 * 7 //18 weeks
@@ -24,14 +22,16 @@ export const SummaryTable = () => {
 				{weekDays.map((weekDay, i) => <WeekDay key={`${weekDay}-${i}`} text={weekDay} />)}
 			</div>
 			<div className="grid grid-rows-7 grid-flow-col gap-3">
-				{summaryDates.map(date => {
+				{summary.length > 0 ? summaryDates.map(date => {
 					const dayInSummary = summary.find(day => {
 						return dayjs(date).isSame(day.date, 'day')
 					})
 
-					return <HabitDay key={date.toString()} date={date} amount={dayInSummary?.amount} completed={dayInSummary?.completed} />
+					console.log(dayInSummary?.completed)
+
+					return <HabitDay key={date.toString()} date={date} amount={dayInSummary?.amount} defaultCompleted={dayInSummary?.completed} />
 				}
-				)}
+				) : null}
 				{ammountOfDaysToFill > 0 && Array.from({length: ammountOfDaysToFill}).map((_, i) => <UnnactiveHabitDay key={i} />)}
 			</div>
 

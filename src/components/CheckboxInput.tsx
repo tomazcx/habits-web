@@ -1,16 +1,18 @@
 import * as Checkbox from '@radix-ui/react-checkbox'
 import {Check} from "phosphor-react"
-import {ICheckboxWeekDay} from './interfaces/ICheckboxWeekDay'
 
+interface ICheckbox {
+	label: string
+}
 
-export const CheckboxWeekDay = ({label, index}: ICheckboxWeekDay) => {
+export const CheckboxWeekDay = ({label}: ICheckbox) => {
 
 	return (
 
 		<Checkbox.Root
 			onCheckedChange={() => {}}
 			className="flex items-center gap-3 group">
-			<div className="h-8 w-8 rounded-lg flex border border-zinc-800 bg-zinc-900 items-center justify-center group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
+			<div className="h-8 w-8 transition-colors rounded-lg flex border border-zinc-800 bg-zinc-900 items-center justify-center group-data-[state=checked]:bg-green-500 group-data-[state=checked]:border-green-500">
 				<Checkbox.Indicator>
 					<Check size={20} className='text-white' />
 				</Checkbox.Indicator>

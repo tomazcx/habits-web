@@ -11,7 +11,7 @@ export const Header = () => {
 			<img src={logoImage} alt="Habits" />
 
 			<Dialog.Root>
-				<Dialog.Trigger className="border border-violet-500 font-semibold rounded-lg px-6 flex py-4 items-center gap-3 hover:border-violet-300">
+				<Dialog.Trigger className="border transition-colors focus:outline-none focus:ring-2 focus:ring-violet-600 focus:ring-offset-2 focus:ring-offset-background border-violet-500 font-semibold rounded-lg px-6 flex py-4 items-center gap-3 hover:border-violet-300">
 					<Plus size={20} className="text-violet-500" />
 					<span>Novo hábito</span>
 				</Dialog.Trigger>
